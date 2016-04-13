@@ -102,7 +102,7 @@ trait SluggableTrait
         }
 
         if (is_string($slug) && $max_length) {
-            $slug = substr($slug, 0, $max_length);
+            $slug = mb_substr($slug, 0, $max_length);
         }
 
         return $slug;
@@ -200,7 +200,7 @@ trait SluggableTrait
     {
         $config = $this->getSluggableConfig();
         $separator = $config['separator'];
-        $len = strlen($slug . $separator);
+        $len = mb_strlen($slug . $separator);
 
         // If the slug already exists, but belongs to
         // our model, return the current suffix.
@@ -211,7 +211,7 @@ trait SluggableTrait
         }
 
         array_walk($list, function (&$value, $key) use ($len) {
-            $value = intval(substr($value, $len));
+            $value = intval(mb_substr($value, $len));
         });
 
         // find the highest increment
